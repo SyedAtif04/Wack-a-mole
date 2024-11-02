@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wach A Cat</title>
-    <link rel="stylesheet" href="cat.css" .css">
-    <script src="cat.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <title>Wack A Cat</title>
+    <link rel="stylesheet" href="cat.css">
+    <script src="cat.js" defer></script>
 </head>
-
 <body>
-    <h1>Wach A Cat</h1>
-    <div class="score">
-        <h3>score:</h3>
-        <h2 id="score">0</h2>
+    <h1>Wack A Cat</h1>
+    <div class="controls">
+        <h3>Score: <span id="score">0</span></h3>
+        <h3>Time Left: <span id="timer">60</span></h3>
     </div>
-
-
-    <div id="board"></div>
+    <div class="game-container">
+        <div id="board"></div>
+        <button id="restartButton" style="display: none;">Restart Game</button>
+    </div>
 </body>
-
 </html>

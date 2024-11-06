@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 [submodule "Wack-a-moles"]
     path = Wack-a-moles
+=======
+[submodule "Wack-a-moles"]
+    path = Wack-a-moles
+>>>>>>> 41d0fce7084613a8a3d2f65792e95041bb5c6c88
     url = https://github.com/Horizon-MJCET/Wack-a-moles.git

@@ -1,3 +1,20 @@
+// Adding a starting page, updating game logic, and improving visuals
+window.onload = function () {
+  showStartPage();
+};
+
+function showStartPage() {
+  const body = document.body;
+  body.innerHTML = `
+    <div class="start-page">
+      <h1>Welcome to Wack A Cat!</h1>
+      <p>Rules: Click on the cats to score points. Avoid clicking on the ducks. You have 60 seconds to score as high as you can. If you click a duck, the game ends!</p>
+      <button id="startButton" class="game-button">Start Game</button>
+    </div>
+  `;
+  document.getElementById("startButton").addEventListener("click", setGame);
+}
+
 let currCatTiles = [];
 let currDuckTiles = [];
 let score = 0;
@@ -12,11 +29,20 @@ let duckInterval;
 let timerInterval;
 let positionSwapInterval;
 
-window.onload = function () {
-  setGame();
-};
-
 function setGame() {
+  gameOver = false;
+  document.body.innerHTML = `
+    <h1>Wack A Cat</h1>
+    <div class="controls">
+      <h3>Score: <span id="score">0</span></h3>
+      <h3>Time Left: <span id="timer">60</span></h3>
+    </div>
+    <div class="game-container">
+      <div id="board"></div>
+      <button id="restartButton" class="game-button" style="display: none;">Restart Game</button>
+    </div>
+  `;
+
   for (let i = 0; i < 9; i++) {
     let tile = document.createElement("div");
     tile.id = i.toString();
@@ -30,15 +56,17 @@ function setGame() {
   clearInterval(timerInterval);
   clearInterval(positionSwapInterval);
 
-  catInterval = setInterval(setCats, 1000);
-  duckInterval = setInterval(setDucks, 2000);
+  catInterval = setInterval(setCats, 1500);
+  duckInterval = setInterval(setDucks, 3000);
   timerInterval = setInterval(updateTimer, 1000);
   positionSwapInterval = setInterval(swapPositions, 1500);
 
   setInterval(() => {
     if (!gameOver && numCats < 3) numCats++;
     if (!gameOver && numDucks < 3) numDucks++;
-  }, 10000);
+  }, 20000);
+
+  setRestartButtonListener();
 }
 
 function getRandomTile(excludeTiles = []) {
@@ -58,6 +86,16 @@ function setCats() {
   for (let i = 0; i < numCats; i++) {
     let cat = document.createElement("img");
     cat.src = "./cat.png";
+    cat.addEventListener("click", () => {
+      if (!cat.dataset.clicked) {
+        cat.src = "./cat-whacked.png"; // Change to an image representing the cat being whacked
+        cat.dataset.clicked = true;
+        cat.removeEventListener("click", arguments.callee); // Prevent further clicks
+        setTimeout(() => {
+          cat.parentElement.innerHTML = "";
+        }, 200);
+      }
+    });
 
     let num = getRandomTile([
       ...currCatTiles.map((t) => t.id),
@@ -153,4 +191,10 @@ function restartGame() {
   setGame();
 }
 
-document.getElementById("restartButton").addEventListener("click", restartGame);
+function setRestartButtonListener() {
+  document
+    .getElementById("restartButton")
+    .addEventListener("click", restartGame);
+}
+
+setRestartButtonListener();

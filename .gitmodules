@@ -1,0 +1,3 @@
+[submodule "Wack-a-moles"]
+    path = Wack-a-moles
+    url = https://github.com/Horizon-MJCET/Wack-a-moles.git

@@ -56,7 +56,7 @@ function setGame() {
   clearInterval(timerInterval);
   clearInterval(positionSwapInterval);
 
-  catInterval = setInterval(setCats, 1200);
+  catInterval = setInterval(setCats, 1350);
   duckInterval = setInterval(setDucks, 1500);
   timerInterval = setInterval(updateTimer, 1000);
   positionSwapInterval = setInterval(swapPositions, 1500);
